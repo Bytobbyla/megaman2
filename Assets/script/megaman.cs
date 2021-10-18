@@ -70,7 +70,7 @@ public class megaman : MonoBehaviour
             Reload = Time.time + fireRate1;
             
         }
-        else if (Reload <= Time.time - TiempoAnim)
+        else if (Reload <= Time.time)
         {
             myAnimator.SetLayerWeight(1, 0);
         }
