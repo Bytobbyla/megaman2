@@ -13,6 +13,7 @@ public class megaman : MonoBehaviour
     private BoxCollider2D myCollider;
     public bool Dash;
     public float Dash_T;
+
     public float Speed_Dash;
     bool doblesalto;
     float Reload;
@@ -31,8 +32,6 @@ public class megaman : MonoBehaviour
     void Update()
     {
         float movH = Input.GetAxis("Horizontal") ;
-
-
         if (movH != 0f && !Dash)
         {
             if (movH < 0f)
@@ -58,17 +57,13 @@ public class megaman : MonoBehaviour
         caer();
         disparo();
     }
-   
     void FixedUpdate()
-    {
-        
+    {   
         Dash_Skill();
         falling();
     }
     void Dash_Skill()
     {
-        
-
         if (Input.GetKey(KeyCode.X) && myCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             Dash_T += 1 * Time.deltaTime;
@@ -97,11 +92,12 @@ public class megaman : MonoBehaviour
     public void disparo()
     {
        
-        if (Input.GetKeyDown(KeyCode.E) && Time.time >= Reload)
+        if (Input.GetKeyDown(KeyCode.E) && Time.time >= Reload && !Dash)
         {
             myAnimator.SetLayerWeight(1, 1);
             Instantiate(Bullet, Firepoint.position, Firepoint.rotation);
             Reload = Time.time + fireRate1;
+            Dash = false;
             
         }
         else if (Reload < Time.time)
@@ -124,15 +120,17 @@ public class megaman : MonoBehaviour
     }
     public void salto()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !Dash)
         {
             
             if (myCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
+
                 doblesalto = true;
                 MyRb.AddForce(new Vector2(0, altura), ForceMode2D.Impulse);
                 myAnimator.SetTrigger("jumping");
                 myAnimator.SetBool("takeof", true);
+                Dash = false;
                 
             }
             else if (doblesalto)
