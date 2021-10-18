@@ -321,7 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   altura: 8
-  fireRate1: 0.5
+  fireRate1: 0.8
   TiempoAnim: 0.1
   Firepoint: {fileID: 380463450}
   Bullet: {fileID: 9070262446043118784, guid: aa297b6463c18d4428bd9141d7d34f41, type: 3}

@@ -53,12 +53,13 @@ public class megaman : MonoBehaviour
         }
         salto();
         caer();
-        
-        
+        disparo();
+
+
     }
     private void FixedUpdate()
     {
-        disparo();
+        
     }
     public void disparo()
     {
