@@ -56,19 +56,12 @@ public class megaman : MonoBehaviour
         }
         salto();
         caer();
-        
-
-        
-
-
-
-
-
+        disparo();
     }
    
     void FixedUpdate()
     {
-        disparo();
+        
         Dash_Skill();
         falling();
     }
@@ -111,7 +104,7 @@ public class megaman : MonoBehaviour
             Reload = Time.time + fireRate1;
             
         }
-        else if (Reload <= Time.time)
+        else if (Reload < Time.time)
         {
             myAnimator.SetLayerWeight(1, 0);
         }
@@ -133,20 +126,24 @@ public class megaman : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            
             if (myCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
+                doblesalto = true;
                 MyRb.AddForce(new Vector2(0, altura), ForceMode2D.Impulse);
                 myAnimator.SetTrigger("jumping");
                 myAnimator.SetBool("takeof", true);
-                doblesalto = true;
+                
             }
             else if (doblesalto)
             {
+                
+                doblesalto = false;
                 MyRb.velocity = Vector2.zero;
                 MyRb.AddForce(new Vector2(0, altura), ForceMode2D.Impulse);
                 myAnimator.SetTrigger("jumping");
-                myAnimator.SetBool("takeof", true);
-                doblesalto = false;
+                myAnimator.SetBool("takeof", false);
+                
             }
         }
 
@@ -156,6 +153,7 @@ public class megaman : MonoBehaviour
     {
         if (myCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
+            
             myAnimator.SetBool("itsFalling", false);
             myAnimator.SetBool("takeof", false);
         }

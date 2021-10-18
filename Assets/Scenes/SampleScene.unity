@@ -324,7 +324,7 @@ MonoBehaviour:
   fireRate1: 1
   TiempoAnim: 0.1
   Dash: 0
-  Dash_T: 10
+  Dash_T: 0
   Speed_Dash: 10
   Firepoint: {fileID: 380463450}
   Bullet: {fileID: 9070262446043118784, guid: aa297b6463c18d4428bd9141d7d34f41, type: 3}
