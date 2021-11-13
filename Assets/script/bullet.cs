@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
+    
     Animator myAnimator;
     private Rigidbody2D MyRb;
     public float speed;
@@ -18,7 +19,7 @@ public class bullet : MonoBehaviour
     void Update()
     {
         MyRb.velocity = transform.right * speed;
-
+       
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
