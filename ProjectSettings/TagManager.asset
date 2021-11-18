@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ambiente
   - bala
+  - disparador
   layers:
   - Default
   - TransparentFX
