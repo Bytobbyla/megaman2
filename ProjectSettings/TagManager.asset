@@ -7,6 +7,8 @@ TagManager:
   - ambiente
   - bala
   - disparador
+  - Enemy
+  - balaEnemigo
   layers:
   - Default
   - TransparentFX

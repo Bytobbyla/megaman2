@@ -29,7 +29,7 @@ public class estatico_bullet : MonoBehaviour
     {
         GameObject objeto = collision.gameObject;
         string etiqueta = objeto.tag;
-        if (etiqueta != "disparador")
+        if (etiqueta != "Enemy")
         {
             MyRb.velocity = transform.right * 0;
             myAnimator.SetTrigger("explota");
