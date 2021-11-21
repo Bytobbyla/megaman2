@@ -179,6 +179,6 @@ MonoBehaviour:
   sfx_bullet: {fileID: 8300000, guid: d3c3d9a8204af9541bcbeb90266c18d3, type: 3}
   animator: {fileID: 7747742556668151462}
   bulletPrefab: {fileID: 7160472994011631755, guid: 5481679a106724344af689be2aac24d7, type: 3}
-  vidas: 1
+  vidas: 2
   lauchSpawnPoint: {fileID: 7747742555390462739}
   player_pos: {fileID: 0}

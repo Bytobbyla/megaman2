@@ -25,7 +25,7 @@ public class bullet : MonoBehaviour
     {
         GameObject objeto = collision.gameObject;
         string etiqueta = objeto.tag;
-        if(etiqueta != "Player")
+        if(etiqueta != "Player" && etiqueta != "balaEnemigo")
         {
             MyRb.velocity = transform.right * 0;
             myAnimator.SetTrigger("explota");

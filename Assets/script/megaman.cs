@@ -10,7 +10,9 @@ public class megaman : MonoBehaviour
     [SerializeField] float TiempoAnim;
     [SerializeField] AudioClip sfx_bullet;
     [SerializeField] AudioClip sfx_death;
-
+    [SerializeField] AudioClip sfx_jump;
+    [SerializeField] AudioClip sfx_dash;
+    [SerializeField] AudioClip sfx_fall;
     Animator myAnimator;
     private Rigidbody2D MyRb;
     private BoxCollider2D myCollider;
@@ -101,6 +103,7 @@ public class megaman : MonoBehaviour
             {
                 Dash = true;
                 myAnimator.SetBool("dash", true);
+                AudioSource.PlayClipAtPoint(sfx_dash, Camera.main.transform.position);
                 transform.Translate(Vector3.right * Speed_Dash * Time.deltaTime);
                 
             }
@@ -142,6 +145,7 @@ public class megaman : MonoBehaviour
         if(MyRb.velocity.y < 0 && !myAnimator.GetBool("takeof"))
         {
             myAnimator.SetBool("itsFalling", true);
+            
         }
     }
     public void terminarsalto()
@@ -160,6 +164,7 @@ public class megaman : MonoBehaviour
                 doblesalto = true;
                 MyRb.AddForce(new Vector2(0, altura), ForceMode2D.Impulse);
                 myAnimator.SetTrigger("jumping");
+                AudioSource.PlayClipAtPoint(sfx_jump, Camera.main.transform.position);
                 myAnimator.SetBool("takeof", true);
                 Dash = false;
                 
@@ -171,6 +176,7 @@ public class megaman : MonoBehaviour
                 MyRb.velocity = Vector2.zero;
                 MyRb.AddForce(new Vector2(0, altura), ForceMode2D.Impulse);
                 myAnimator.SetTrigger("jumping");
+                AudioSource.PlayClipAtPoint(sfx_jump, Camera.main.transform.position);
                 myAnimator.SetBool("takeof", false);
                 
             }
@@ -184,6 +190,7 @@ public class megaman : MonoBehaviour
         {
             
             myAnimator.SetBool("itsFalling", false);
+            
             myAnimator.SetBool("takeof", false);
         }
     }

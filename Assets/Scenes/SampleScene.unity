@@ -530,6 +530,9 @@ MonoBehaviour:
   TiempoAnim: 0.1
   sfx_bullet: {fileID: 8300000, guid: d3c3d9a8204af9541bcbeb90266c18d3, type: 3}
   sfx_death: {fileID: 8300000, guid: b520672d1554d0f42acd4d48c5e906ea, type: 3}
+  sfx_jump: {fileID: 8300000, guid: b8e02944b41ea22418668d72dce71904, type: 3}
+  sfx_dash: {fileID: 8300000, guid: 51dfe2cb552844c46b2f3082a265d373, type: 3}
+  sfx_fall: {fileID: 8300000, guid: ef334aa685f8c684186cc177e2011adf, type: 3}
   Dash: 0
   Dash_T: 0
   vidas: 1

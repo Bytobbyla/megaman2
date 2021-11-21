@@ -23,13 +23,14 @@ public class estatico_bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MyRb.velocity = transform.right * -speed;  
+        MyRb.velocity = transform.right * -speed;
+       
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject objeto = collision.gameObject;
         string etiqueta = objeto.tag;
-        if (etiqueta != "Enemy")
+        if (etiqueta != "Enemy" &&  etiqueta != "bala")
         {
             MyRb.velocity = transform.right * 0;
             myAnimator.SetTrigger("explota");
