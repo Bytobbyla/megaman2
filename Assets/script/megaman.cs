@@ -9,6 +9,7 @@ public class megaman : MonoBehaviour
     [SerializeField] float fireRate1;
     [SerializeField] float TiempoAnim;
     [SerializeField] AudioClip sfx_bullet;
+    [SerializeField] AudioClip sfx_death;
 
     Animator myAnimator;
     private Rigidbody2D MyRb;
@@ -190,12 +191,15 @@ public class megaman : MonoBehaviour
     {
         GameObject objeto = collision.gameObject;
         string etiqueta = objeto.tag;
-        if (etiqueta == "enemigo")
+        if (etiqueta == "Enemy" || etiqueta == "balaEnemigo")
         {
             vidas--;
             if (vidas == 0)
             {
+               
+                AudioSource.PlayClipAtPoint(sfx_death, Camera.main.transform.position);
                 Time.timeScale = 0;
+                (GameObject.Find("GameManager").GetComponent<GameManager>()).GameOvermenu();
 
             }
         }

@@ -11,13 +11,14 @@ public class abejorro : MonoBehaviour
 
 
     private Vector2 actualPos;
-
+    private CircleCollider2D myCollider;
     public SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
         MyRb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
+        myCollider = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
@@ -38,10 +39,15 @@ public class abejorro : MonoBehaviour
         string etiqueta = objeto.tag;
         if (etiqueta == "bala")
         {
-            aipath.enabled = false;
+            
+            
             MyRb.velocity = transform.right * 0;
-            myAnimator.SetTrigger("explota");
+            aipath.enabled = false;
             Destroy(gameObject, 0.7f);
+            myAnimator.SetTrigger("explota");
+            myCollider.enabled = false;
+            
+
             AudioSource.PlayClipAtPoint(sfx_explosion, Camera.main.transform.position);
         }
 

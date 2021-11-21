@@ -7,7 +7,9 @@ public class estatico_1 : MonoBehaviour
 
     private float waitedTime;
 
-    public float waitTimeToAttack = 3;
+    public float waitTimeToAttack = 0.1f;
+    [SerializeField] AudioClip sfx_explosion;
+    [SerializeField] AudioClip sfx_bullet;
 
     public Animator animator;
 
@@ -34,22 +36,46 @@ public class estatico_1 : MonoBehaviour
         if(player_pos.position.x > this.transform.position.x && !destruye)
         {
             this.transform.eulerAngles = new Vector3(0, 180, 0);
+            
         }
         else
         {
+            
             this.transform.eulerAngles = new Vector3(0, 0, 0);
         }
        
-        if (waitedTime <= 0)
+     
+        if (DetectarJugador())
         {
-            waitedTime = waitTimeToAttack;
-            Invoke("LauchBullet", 0.5f);
-           
+            if (waitedTime <= 0)
+            {
+                waitedTime = waitTimeToAttack;
+                Invoke("LauchBullet",0f);
+
+            }
+            else
+            {
+                waitedTime -= Time.deltaTime;
+            }
+        }
+    }
+    bool DetectarJugador()
+    {
+        if (player_pos.position.x > this.transform.position.x)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 5f, LayerMask.GetMask("Player"));
+            Debug.DrawRay(transform.position, Vector2.right * 5f, Color.green);
+            return hit.collider != null;
         }
         else
         {
-            waitedTime -= Time.deltaTime;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, 5f, LayerMask.GetMask("Player"));
+            Debug.DrawRay(transform.position, Vector2.left * 5f, Color.green);
+            return hit.collider != null;
         }
+        
+       
+        
     }
     public void LauchBullet()
     {
@@ -57,6 +83,7 @@ public class estatico_1 : MonoBehaviour
         if (!destruye)
         {
             newBullet = Instantiate(bulletPrefab, lauchSpawnPoint.position, lauchSpawnPoint.rotation);
+            AudioSource.PlayClipAtPoint(sfx_bullet, Camera.main.transform.position);
         }
        
     }
@@ -72,11 +99,14 @@ public class estatico_1 : MonoBehaviour
                 destruye = true;
                 myCollider.enabled = false;
                 Destroy(gameObject, 0.7f);
+                
                 myAnimator.SetTrigger("explota");
+                AudioSource.PlayClipAtPoint(sfx_explosion, Camera.main.transform.position);
             }
         }
 
     }
+   
    
         
     

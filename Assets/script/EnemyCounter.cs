@@ -18,5 +18,6 @@ public class EnemyCounter : MonoBehaviour
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         enemyCountText.text = "Enemigos : " + enemies.Length.ToString();
+        (GameObject.Find("GameManager").GetComponent<GameManager>()).WinMenu();
     }
 }
