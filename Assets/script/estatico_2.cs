@@ -7,7 +7,7 @@ public class estatico_2 : MonoBehaviour
     private float waitedTime;
     public Animator animator;
 
-    public float waitTimeToAttack = 1.5f;
+    public float waitTimeToAttack;
     public Transform player_pos;
 
     public GameObject bulletPrefab;
@@ -34,16 +34,22 @@ public class estatico_2 : MonoBehaviour
     {
         if (DetectarJugador())
         {
-            if (waitedTime <= 0)
+            if (Time.time >= waitedTime)
             {
-                waitedTime = waitTimeToAttack;
+                myAnimator.SetLayerWeight(1, 1);
                 Invoke("LauchBullet", 0f);
+                AudioSource.PlayClipAtPoint(sfx_bullet, Camera.main.transform.position);
+                waitedTime = Time.time + waitTimeToAttack;
+                
 
             }
-            else
+            else if (waitedTime < Time.time)
             {
-                waitedTime -= Time.deltaTime;
+
+                myAnimator.SetLayerWeight(1,0);
+
             }
+
         }
     }
     public void LauchBullet()
@@ -51,11 +57,12 @@ public class estatico_2 : MonoBehaviour
         GameObject newBullet;
         if (!destruye)
         {
+            
             newBullet = Instantiate(bulletPrefab, lauchSpawnPoint1.position, lauchSpawnPoint1.rotation);
             newBullet = Instantiate(bulletPrefab, lauchSpawnPoint2.position, lauchSpawnPoint2.rotation);
-            AudioSource.PlayClipAtPoint(sfx_bullet, Camera.main.transform.position);
+            
         }
-
+      
     }
     bool DetectarJugador()
     {

@@ -29,6 +29,7 @@ public class megaman : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         myAnimator = GetComponent<Animator>();
         MyRb = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<BoxCollider2D>();
@@ -62,6 +63,7 @@ public class megaman : MonoBehaviour
         salto();
         caer();
         disparo();
+        audiodash();
     }
     void FixedUpdate()
     {   
@@ -89,10 +91,18 @@ public class megaman : MonoBehaviour
 
     }
     bool EstaEnSuelo()
-    { 
+    {
+        
         RaycastHit2D colision_suelo = Physics2D.Raycast(myCollider.bounds.center,Vector2.down,myCollider.bounds.extents.y + 0.1f, LayerMask.GetMask("Ground"));
         Debug.DrawRay(myCollider.bounds.center, Vector2.down * (myCollider.bounds.extents.y + 0.1f), Color.green);
         return colision_suelo.collider != null;
+    }
+    private void audiodash()
+    {
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            AudioSource.PlayClipAtPoint(sfx_dash, Camera.main.transform.position);
+        }
     }
     void Dash_Skill()
     {
@@ -103,7 +113,7 @@ public class megaman : MonoBehaviour
             {
                 Dash = true;
                 myAnimator.SetBool("dash", true);
-                AudioSource.PlayClipAtPoint(sfx_dash, Camera.main.transform.position);
+                
                 transform.Translate(Vector3.right * Speed_Dash * Time.deltaTime);
                 
             }
@@ -198,6 +208,10 @@ public class megaman : MonoBehaviour
     {
         GameObject objeto = collision.gameObject;
         string etiqueta = objeto.tag;
+        if (etiqueta == "ambiente")
+        {
+            AudioSource.PlayClipAtPoint(sfx_fall, Camera.main.transform.position);
+        }
         if (etiqueta == "Enemy" || etiqueta == "balaEnemigo")
         {
             vidas--;
