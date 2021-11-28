@@ -16,6 +16,7 @@ public class abejorro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        aipath.enabled = false;
         MyRb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         myCollider = GetComponent<CircleCollider2D>();
@@ -32,6 +33,26 @@ public class abejorro : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
+    }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        GameObject objeto = col.gameObject;
+        string etiqueta = objeto.tag;
+        if (col.CompareTag("Player"))
+        {
+            aipath.enabled = true;
+        }
+
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        GameObject objeto = other.gameObject;
+        string etiqueta = objeto.tag;
+        if (other.CompareTag("Player"))
+        {
+            aipath.enabled = false;
+        }
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
