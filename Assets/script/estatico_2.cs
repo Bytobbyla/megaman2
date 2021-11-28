@@ -40,7 +40,8 @@ public class estatico_2 : MonoBehaviour
     {
         if (DetectarJugador() && Time.time >= waitedTime)
         {
-            myAnimator.SetLayerWeight(1, 1);
+            //myAnimator.SetLayerWeight(1, 1);
+            myAnimator.SetBool("shoot", true);
             Invoke("LauchBullet", 0f);
             AudioSource.PlayClipAtPoint(sfx_bullet, Camera.main.transform.position);
             waitedTime = Time.time + waitTimeToAttack;
@@ -50,8 +51,8 @@ public class estatico_2 : MonoBehaviour
         else if (waitedTime < Time.time)
         {
 
-            myAnimator.SetLayerWeight(1, 0);
-
+            //myAnimator.SetLayerWeight(1, 0);
+            myAnimator.SetBool("shoot", false);
         }
     }
     public void LauchBullet()
