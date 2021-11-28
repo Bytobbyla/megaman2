@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class estatico_2 : MonoBehaviour
 {
-    private float waitedTime;
+    float Reload;
     public Animator animator;
 
-    public float waitTimeToAttack;
+    [SerializeField] float waitTimeToAttack;
     public Transform player_pos;
 
     public GameObject bulletPrefab;
@@ -16,6 +16,7 @@ public class estatico_2 : MonoBehaviour
     public Transform lauchSpawnPoint1;
     public Transform lauchSpawnPoint2;
     Animator myAnimator;
+    public bool atacando;
     private BoxCollider2D myCollider;
 
     [SerializeField] AudioClip sfx_explosion;
@@ -24,7 +25,7 @@ public class estatico_2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        waitedTime = waitTimeToAttack;
+        
         myAnimator = GetComponent<Animator>();
         myCollider = GetComponent<BoxCollider2D>();
     }
@@ -32,23 +33,22 @@ public class estatico_2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (DetectarJugador())
+        disparo();
+        
+    }
+    public void disparo()
+    {
+        if (DetectarJugador() && Time.time >= Reload)
         {
-            if (Time.time >= waitedTime)
-            {
-                myAnimator.SetLayerWeight(1, 1);
-                Invoke("LauchBullet", 0f);
-                AudioSource.PlayClipAtPoint(sfx_bullet, Camera.main.transform.position);
-                waitedTime = Time.time + waitTimeToAttack;
-                
+            myAnimator.SetLayerWeight(1, 1);
+            Invoke("LauchBullet", 0f);
+            AudioSource.PlayClipAtPoint(sfx_bullet, Camera.main.transform.position);
+            Reload = Time.time + waitTimeToAttack;
+        }
+        else if (Reload < Time.time)
+        {
 
-            }
-            else if (waitedTime < Time.time)
-            {
-
-                myAnimator.SetLayerWeight(1,0);
-
-            }
+            myAnimator.SetLayerWeight(1, 0);
 
         }
     }
@@ -70,6 +70,7 @@ public class estatico_2 : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 10f, LayerMask.GetMask("Player"));
             Debug.DrawRay(transform.position, Vector2.right * 10f, Color.green);
+            myAnimator.SetLayerWeight(1, 0);
             return hit.collider != null;
         }
         else
@@ -82,6 +83,7 @@ public class estatico_2 : MonoBehaviour
 
 
     }
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject objeto = collision.gameObject;
