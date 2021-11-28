@@ -24,7 +24,7 @@ public class estatico_2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        waitedTime = waitTimeToAttack;
+        
         myAnimator = GetComponent<Animator>();
         myCollider = GetComponent<BoxCollider2D>();
     }
@@ -32,23 +32,25 @@ public class estatico_2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (DetectarJugador())
+        disparo();
+
+
+    }
+    public void disparo()
+    {
+        if (DetectarJugador() && Time.time >= waitedTime)
         {
-            if (Time.time >= waitedTime)
-            {
-                myAnimator.SetLayerWeight(1, 1);
-                Invoke("LauchBullet", 0f);
-                AudioSource.PlayClipAtPoint(sfx_bullet, Camera.main.transform.position);
-                waitedTime = Time.time + waitTimeToAttack;
-                
+            myAnimator.SetLayerWeight(1, 1);
+            Invoke("LauchBullet", 0f);
+            AudioSource.PlayClipAtPoint(sfx_bullet, Camera.main.transform.position);
+            waitedTime = Time.time + waitTimeToAttack;
 
-            }
-            else if (waitedTime < Time.time)
-            {
 
-                myAnimator.SetLayerWeight(1,0);
+        }
+        else if (waitedTime < Time.time)
+        {
 
-            }
+            myAnimator.SetLayerWeight(1, 0);
 
         }
     }
@@ -82,6 +84,7 @@ public class estatico_2 : MonoBehaviour
 
 
     }
+   
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject objeto = collision.gameObject;

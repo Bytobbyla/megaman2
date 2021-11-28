@@ -63,13 +63,13 @@ public class estatico_1 : MonoBehaviour
     {
         if (player_pos.position.x > this.transform.position.x)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 10f, LayerMask.GetMask("Player"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 15f, LayerMask.GetMask("Player"));
             Debug.DrawRay(transform.position, Vector2.right * 10f, Color.green);
             return hit.collider != null;
         }
         else
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, 10f, LayerMask.GetMask("Player"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, 15f, LayerMask.GetMask("Player"));
             Debug.DrawRay(transform.position, Vector2.left * 10f, Color.green);
             return hit.collider != null;
         }
