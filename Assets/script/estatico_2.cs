@@ -81,9 +81,6 @@ public class estatico_2 : MonoBehaviour
             Debug.DrawRay(transform.position, Vector2.left * 10f, Color.green);
             return hit.collider != null;
         }
-
-
-
     }
    
     private void OnCollisionEnter2D(Collision2D collision)

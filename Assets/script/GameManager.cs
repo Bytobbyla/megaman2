@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour
             winMenu.SetActive(true);
         }
     }
+    public void GameResart()
+    {
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+    }
     public void GameOver()
     {
         SceneManager.LoadScene(0);
